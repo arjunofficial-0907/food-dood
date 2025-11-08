@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 
-  const url = "http://localhost:1303"
+  const url = import.meta.env.VITE_API_URL || "http://localhost:1303"
 
   return (
     <div>
