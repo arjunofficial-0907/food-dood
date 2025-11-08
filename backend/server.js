@@ -1,4 +1,3 @@
-// ...existing code...
 import express from "express"
 import cors from "cors"
 import connectDB from "./config/db.js"
@@ -31,18 +30,21 @@ app.use(cors({
 // db connection
 connectDB()
 
-// ...existing code...
-app.use("/api/food",foodRouter)
-app.use("/images",express.static('uploads'))
-app.use("/api/user" ,userRouter)
-app.use("/api/cart",cartRouter) 
-app.use("/api/order",orderRouter)
+// routes
+app.use("/api/food", foodRouter)
+app.use("/images", express.static('uploads'))
+app.use("/api/user", userRouter)
+app.use("/api/cart", cartRouter)
+app.use("/api/order", orderRouter)
 
-app.get("/",(req,res)=>{ 
-    res.send("API Working Perfectly")
+// health & root endpoints
+app.get("/health", (req, res) => res.sendStatus(200)) // recommended for platform health checks
+app.get("/", (req, res) => { 
+  res.send("API Working Perfectly")
 })
 
-app.listen(PORT,()=>{
-    console.log(`Server Running On http://localhost:${PORT}`)
+// listen on the port Render assigns and bind to all interfaces
+const HOST = "0.0.0.0"
+app.listen(PORT, HOST, () => {
+  console.log(`Server Running On http://${HOST}:${PORT}`)
 })
-// ...existing code...
