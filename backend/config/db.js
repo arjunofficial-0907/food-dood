@@ -1,6 +1,16 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
- export const connectDB = async () => {
-    await mongoose.connect('mongodb+srv://official000abc:334455@cluster0.dcrm7.mongodb.net/food-del').then(()=>console.log("DB Connected"))
-}
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGODB_URI);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
+    }
+};
+
+export default connectDB;
